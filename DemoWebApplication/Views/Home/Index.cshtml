@@ -1,0 +1,121 @@
+﻿<h2>Index</h2>
+@* CSS *@
+@*<link href="~/css/bootstrap.css" rel="stylesheet" />*@
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+@* JS for angularJS and Datatable *@
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/jquery.dataTables.js"></script>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/angular-datatables.js"></script>
+@* JS for our angularjs module, controller etc. *@
+<script src="~/Scripts/dirPagination.js"></script>
+<script src="~/Scripts/myApp.js"></script>
+@* HTML *@
+
+<style>
+    .sort-icon {
+        font-size: 9px;
+        margin-left: 5px;
+    }
+
+    th {
+        cursor: pointer;
+    }
+</style>
+<div ng-app="MyApp" class="container">
+    <div ng-controller="homeCtrl">
+        @*<table id="entry-grid" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="table table-hover"></table>*@
+        <form class="form-inline">
+            <div class="form-group">
+                <label>Search</label>
+                <input type="text" ng-model="search" class="form-control" placeholder="Search">
+            </div>
+        </form>
+        <table class="table table-striped table-hover">
+
+
+            <thead>
+                <tr>
+                    <th ng-click="sort('Id')">
+                        Id
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='Id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th ng-click="sort('PostContent')">
+                        First Name
+                        <span class="glyphicon sort-icon" ng-show="sortKey=='PostContent'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+
+                </tr>
+            </thead>
+
+
+
+            <tbody>
+                <tr dir-paginate="user in postList|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
+                    <td>{{user.Id}}</td>
+                    <td>{{user.PostContent}}</td>
+                <tr ng-repeat="user in user.Contents">
+                    <td>{{user.Id}}</td>
+                    <td>{{user.Contents}}</td>
+
+                </tr>
+                </tr>
+            </tbody>
+        </table>
+        <dir-pagination-controls max-size="5"
+                                 direction-links="true"
+                                 boundary-links="true">
+        </dir-pagination-controls>
+
+
+        @*<ul>
+            <li ng-repeat="item in postList">
+                <a href="#">{{item.PostContent}}</a>
+            </li>
+        </ul>*@
+
+
+        @*<div class='panel-group' id='accordion'>
+            <div class="panel panel-default">
+                <h4 class="panel-title">
+                    <a data-ng-click="accordion1 = !accordion1">
+                        <table class="table">
+                            <tr>
+                                <td>a</td>
+                                <td>b</td>
+                                <td>c</td>
+                            </tr>
+                        </table>
+
+
+                    </a>
+                </h4>
+                <div data-ng-show="accordion1">
+                    <div class='panel-body'>
+                        <table class="table">
+                            <tr>
+                                <td>a</td>
+                                <td>b</td>
+                                <td>e</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <h4 class="panel-title">
+                    <a data-ng-click="accordion2 = !accordion2">foo2</a>
+                </h4>
+                <div data-ng-show="accordion2">
+                    <div class='panel-body'>
+                        <p>foo2</p>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+    </div>
+</div>
