@@ -145,6 +145,9 @@ namespace WebApplication.Api.Controllers
         //{
         //    return db.Posts.Count(e => e.Id == id) > 0;
         //}
+
+
+
     }
 
     public class BaseAPIController : ApiController
@@ -153,8 +156,13 @@ namespace WebApplication.Api.Controllers
         protected HttpResponseMessage ToJson(dynamic obj)
         {
             var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json");
+            response.Content = new StringContent(JsonConvert.SerializeObject(obj, Formatting.None,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        }), Encoding.UTF8, "application/json");
             return response;
         }
+       
     }
 }
